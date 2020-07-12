@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.ui.NewsViewModel
@@ -36,6 +37,11 @@ class ArticleFragment : Fragment() {
             settings.javaScriptEnabled
             settings.domStorageEnabled
             loadUrl(article.url)
+        }
+
+        fab.setOnClickListener {
+            viewModel.saveArticle(article)
+            Snackbar.make(view, "Saved successfully!", Snackbar.LENGTH_SHORT).show()
         }
 
     }
