@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mrwhoknows.news.NewsActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.R
+import com.mrwhoknows.news.adapters.NewsAdapter
 import com.mrwhoknows.news.ui.NewsViewModel
+import kotlinx.android.synthetic.main.fragment_saved_news.*
 
 class SavedNewsFragment : Fragment() {
 
-    lateinit var viewModel: NewsViewModel
+    private lateinit var viewModel: NewsViewModel
+    lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +29,25 @@ class SavedNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as NewsActivity).viewModel
+//        setupRecyclerView()
+//        newsAdapter.setOnItemClickListener { clickedArticle ->
+//
+//            val bundle = Bundle().apply {
+//                putSerializable("article", clickedArticle)
+//            }
+//            findNavController().navigate(
+////                BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(clickedArticle)
+//                R.id.action_savedNewsFragment_to_articleFragment,
+//                bundle
+//            )
+//        }
+    }
+
+    private fun setupRecyclerView() {
+        newsAdapter = NewsAdapter()
+        rvSavedNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }

@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mrwhoknows.news.NewsActivity
+import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.adapters.NewsAdapter
 import com.mrwhoknows.news.ui.NewsViewModel
@@ -72,6 +73,18 @@ class SearchNewsFragment : Fragment() {
                 }
             }
         })
+
+        newsAdapter.setOnItemClickListener { clickedArticle ->
+
+            val bundle = Bundle().apply {
+                putSerializable("article", clickedArticle)
+            }
+            findNavController().navigate(
+//                BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(clickedArticle)
+                R.id.action_searchNewsFragment_to_articleFragment,
+                bundle
+            )
+        }
     }
 
     private fun hideProgressbar() {

@@ -1,15 +1,13 @@
-package com.mrwhoknows.news
+package com.mrwhoknows.news.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.mrwhoknows.news.R
 import com.mrwhoknows.news.db.ArticleDatabase
 import com.mrwhoknows.news.repository.NewsRepository
-import com.mrwhoknows.news.ui.NewsViewModel
-import com.mrwhoknows.news.ui.NewsViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_news.*
 
 class NewsActivity : AppCompatActivity() {
