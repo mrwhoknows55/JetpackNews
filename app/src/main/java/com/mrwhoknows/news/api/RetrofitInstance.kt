@@ -1,6 +1,5 @@
 package com.mrwhoknows.news.api
 
-import com.mrwhoknows.news.model.NewsResponse
 import com.mrwhoknows.news.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,9 +20,8 @@ class RetrofitInstance {
                 .client(client)
                 .build()
         }
-    }
-
-    val api by lazy {
-        retrofit.create(NewsResponse::class.java)
+        val api by lazy {
+            retrofit.create(NewsAPI::class.java)
+        }
     }
 }
