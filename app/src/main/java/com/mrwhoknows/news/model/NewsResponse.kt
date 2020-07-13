@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class NewsResponse(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
-    val articles: List<Article>,
+    val articles: MutableList<Article>,
     val status: String,
     val totalResults: Int
 )
