@@ -19,11 +19,11 @@ class NewsViewModel(
 
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
-    var breakingNewsResponse: NewsResponse? = null
+    private var breakingNewsResponse: NewsResponse? = null
 
     val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
-    var searchNewsResponse: NewsResponse? = null
+    private var searchNewsResponse: NewsResponse? = null
 
     init {
         getBreakingNews(COUNTRY_CODE)
@@ -66,6 +66,9 @@ class NewsViewModel(
                     searchNewsResponse = resultResponse
                 } else {
                     val oldArticles = searchNewsResponse?.articles
+                    if (searchNewsPage == 2) {
+                        oldArticles?.clear()
+                    }
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
                 }

@@ -52,6 +52,7 @@ class SearchNewsFragment : Fragment() {
             job = MainScope().launch {
                 delay(SEARCH_NEWS_TIME_DELAY)
                 it?.let {
+                    viewModel.searchNewsPage = 1
                     if (it.toString().isNotEmpty()) viewModel.searchNews(it.toString())
                 }
             }
