@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.adapters.NewsAdapter
@@ -20,7 +21,6 @@ import com.mrwhoknows.news.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.mrwhoknows.news.util.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import kotlinx.android.synthetic.main.fragment_breaking_news.paginationProgressBar
-import kotlinx.android.synthetic.main.fragment_search_news.*
 
 private const val TAG = "BreakingNewsFragment"
 
@@ -59,6 +59,7 @@ class BreakingNewsFragment : Fragment() {
                     hideProgressbar()
                     response.message?.let { message ->
                         Log.e(TAG, "Error occurred $message ")
+                        Snackbar.make(view, "Error: $message", Snackbar.LENGTH_LONG).show()
                     }
                 }
                 is Resource.Loading -> {
