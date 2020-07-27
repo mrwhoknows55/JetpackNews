@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.model.Article
 import kotlinx.android.synthetic.main.item_article.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
@@ -46,6 +48,18 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             tvTitle.text = currentArticle.title
             tvDescription.text = currentArticle.description
             tvPublishedAt.text = currentArticle.publishedAt
+
+            val inputDateFormatter =
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            inputDateFormatter.timeZone = TimeZone.getTimeZone("UTC")
+
+            val outputDateFormatter =
+                SimpleDateFormat("dd, MMM yyyy HH:mm a", Locale.getDefault())
+            outputDateFormatter.timeZone = TimeZone.getDefault()
+
+            val dateTime = inputDateFormatter.parse(currentArticle.publishedAt)
+            tvPublishedAt.text = outputDateFormatter.format(dateTime!!)
+
             setOnClickListener {
                 onItemClickListener?.let {
                     it(currentArticle)
