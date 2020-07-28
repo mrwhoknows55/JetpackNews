@@ -11,7 +11,8 @@ import com.mrwhoknows.news.R
 import com.mrwhoknows.news.model.Article
 import kotlinx.android.synthetic.main.item_article.view.*
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+import java.util.TimeZone
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 

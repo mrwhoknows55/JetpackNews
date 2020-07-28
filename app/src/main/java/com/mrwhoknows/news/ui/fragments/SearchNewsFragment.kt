@@ -13,9 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.adapters.NewsAdapter
+import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.ui.NewsViewModel
 import com.mrwhoknows.news.util.Constants
 import com.mrwhoknows.news.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
@@ -59,31 +59,34 @@ class SearchNewsFragment : Fragment() {
             }
         }
 
-        viewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-                is Resource.Success -> {
-                    hideProgressbar()
-                    response.data?.let {
-                        newsAdapter.differ.submitList(it.articles.toList())
-                        val totalPages = it.totalResults / Constants.QUERY_PAGE_SIZE + 2
-                        isLastPage = viewModel.searchNewsPage == totalPages
+        viewModel.searchNews.observe(
+            viewLifecycleOwner,
+            Observer { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        hideProgressbar()
+                        response.data?.let {
+                            newsAdapter.differ.submitList(it.articles.toList())
+                            val totalPages = it.totalResults / Constants.QUERY_PAGE_SIZE + 2
+                            isLastPage = viewModel.searchNewsPage == totalPages
 
 //                      hide bottom padding from  last item
-                        if (isLastPage) rvSearchNews.setPadding(0, 0, 0, 0)
+                            if (isLastPage) rvSearchNews.setPadding(0, 0, 0, 0)
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    hideProgressbar()
-                    response.message?.let { message ->
-                        Log.e(TAG, "Error occurred $message ")
-                        Snackbar.make(view, "Error: $message", Snackbar.LENGTH_LONG).show()
+                    is Resource.Error -> {
+                        hideProgressbar()
+                        response.message?.let { message ->
+                            Log.e(TAG, "Error occurred $message ")
+                            Snackbar.make(view, "Error: $message", Snackbar.LENGTH_LONG).show()
+                        }
                     }
-                }
-                is Resource.Loading -> {
-                    showProgressbar()
+                    is Resource.Loading -> {
+                        showProgressbar()
+                    }
                 }
             }
-        })
+        )
 
         newsAdapter.setOnItemClickListener { clickedArticle ->
 
@@ -127,7 +130,7 @@ class SearchNewsFragment : Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate =
                 isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
-                        isTotalMoreThanVisible && isScrolling
+                    isTotalMoreThanVisible && isScrolling
 
             if (shouldPaginate) {
                 viewModel.searchNews(etSearch.text.toString())

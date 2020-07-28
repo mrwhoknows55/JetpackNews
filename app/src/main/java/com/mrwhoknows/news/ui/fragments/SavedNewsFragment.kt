@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.R
 import com.mrwhoknows.news.adapters.NewsAdapter
+import com.mrwhoknows.news.ui.NewsActivity
 import com.mrwhoknows.news.ui.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_saved_news.*
 
@@ -76,9 +76,12 @@ class SavedNewsFragment : Fragment() {
             attachToRecyclerView(rvSavedNews)
         }
 
-        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer { articles ->
-            newsAdapter.differ.submitList(articles)
-        })
+        viewModel.getSavedNews().observe(
+            viewLifecycleOwner,
+            Observer { articles ->
+                newsAdapter.differ.submitList(articles)
+            }
+        )
     }
 
     private fun setupRecyclerView() {

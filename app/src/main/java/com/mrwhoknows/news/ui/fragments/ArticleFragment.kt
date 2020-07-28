@@ -43,6 +43,5 @@ class ArticleFragment : Fragment() {
             viewModel.saveArticle(article)
             Snackbar.make(view, "Saved successfully!", Snackbar.LENGTH_SHORT).show()
         }
-
     }
 }
